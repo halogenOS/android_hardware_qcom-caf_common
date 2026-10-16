@@ -3,34 +3,56 @@
 // SPDX-License-Identifier: Apache-2.0
 //
 
+kernel_uapi_header_dirs {
+    name: "qti_kernel_uapi_header_dirs",
+    licenses: ["linux_kernel_headers_license"],
+    headers: "generated_kernel_includes",
+    dirs: [
+        "audio/include/uapi",
+        "include",
+        "include/audio",
+        "include/audio/include/uapi",
+        "techpack/audio/include",
+    ],
+}
+
+cc_defaults {
+    name: "qti_kernel_header_defaults",
+    licenses: ["linux_kernel_headers_license"],
+    generated_headers: ["qti_kernel_uapi_header_dirs"],
+    export_generated_headers: ["qti_kernel_uapi_header_dirs"],
+    vendor_available: true,
+    recovery_available: true,
+}
+
 cc_library_headers {
     name: "audio_kernel_headers",
-    defaults: ["generated_kernel_header_defaults"],
+    defaults: ["qti_kernel_header_defaults"],
 }
 
 cc_library_headers {
     name: "qti_audio_kernel_uapi",
-    defaults: ["generated_kernel_header_defaults"],
+    defaults: ["qti_kernel_header_defaults"],
 }
 
 cc_library_headers {
     name: "qti_display_kernel_headers",
-    defaults: ["generated_kernel_header_defaults"],
+    defaults: ["qti_kernel_header_defaults"],
 }
 
 cc_library_headers {
     name: "qti_ipa_kernel_headers",
-    defaults: ["generated_kernel_header_defaults"],
+    defaults: ["qti_kernel_header_defaults"],
 }
 
 cc_library_headers {
     name: "qti_kernel_headers",
-    defaults: ["generated_kernel_header_defaults"],
+    defaults: ["qti_kernel_header_defaults"],
 }
 
 cc_library_headers {
     name: "smmu_proxy_uapi_header",
-    defaults: ["generated_kernel_header_defaults"],
+    defaults: ["qti_kernel_header_defaults"],
 }
 
 soong_config_module_type {
